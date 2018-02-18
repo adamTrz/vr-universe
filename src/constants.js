@@ -1,0 +1,12 @@
+export const EARTH_DAY = 2000
+
+export const EARTH_YEAR = 10 * EARTH_DAY
+// export const EARTH_YEAR = 360 * EARTH_DAY
+
+/**
+ * ALL DISTANCES IN AU UNIT
+ */
+
+const EARTH_APHELION = 1.0167
+const EART_PERIHELION = 0.98329
+const EARTH_AXIAL_TILT = 23.4
