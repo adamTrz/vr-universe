@@ -41,6 +41,7 @@ export default class Planet extends React.Component {
 
   render() {
     const { elipsisRadius, axialTilt, radius, inclination } = this.props
+    // FIXME: Add sinus-like movement here:
     const inclinationDeviation = elipsisRadius * Math.sin(inclination)
     return (
       <View>
