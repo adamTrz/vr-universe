@@ -1,19 +1,19 @@
-import React from 'react'
-import { Animated, Sphere, View, asset } from 'react-vr'
-import { Easing } from 'react-native'
-import AnimatedMath from 'react-native-animated-math'
+import React from 'react';
+import { Animated, Sphere, View, asset } from 'react-vr';
+import { Easing } from 'react-native';
+import AnimatedMath from 'react-native-animated-math';
 
-const Globe = Animated.createAnimatedComponent(Sphere)
+const Globe = Animated.createAnimatedComponent(Sphere);
 
-const radians = degrees => degrees * Math.PI / 180
+const radians = degrees => degrees * Math.PI / 180;
 
 export default class Planet extends React.Component {
-  spin = new Animated.Value(0)
-  rotation = new Animated.Value(0)
+  spin = new Animated.Value(0);
+  rotation = new Animated.Value(0);
 
   componentDidMount() {
-    this.startSpinning()
-    this.startRotation()
+    this.startSpinning();
+    this.startRotation();
   }
 
   startSpinning = () => {
@@ -22,10 +22,10 @@ export default class Planet extends React.Component {
       easing: Easing.linear,
       duration: this.props.dayDuration,
     }).start(() => {
-      this.spin.setValue(0)
-      this.startSpinning()
-    })
-  }
+      this.spin.setValue(0);
+      this.startSpinning();
+    });
+  };
 
   startRotation = () => {
     Animated.timing(this.rotation, {
@@ -34,15 +34,15 @@ export default class Planet extends React.Component {
       duration: this.props.yearDuration,
       // useNativeDriver: true, https://github.com/facebook/react-native/issues/11094#issuecomment-263240420
     }).start(() => {
-      this.rotation.setValue(0)
-      this.startRotation()
-    })
-  }
+      this.rotation.setValue(0);
+      this.startRotation();
+    });
+  };
 
   render() {
-    const { elipsisRadius, axialTilt, radius, inclination } = this.props
+    const { elipsisRadius, axialTilt, radius, inclination } = this.props;
     // FIXME: Add sinus-like movement here:
-    const inclinationDeviation = elipsisRadius * Math.sin(inclination)
+    const inclinationDeviation = elipsisRadius * Math.sin(inclination);
     return (
       <View>
         <Globe
@@ -61,22 +61,10 @@ export default class Planet extends React.Component {
                 ),
               },
               {
-                translateY: this.rotation.interpolate({
-                  inputRange: [
-                    0,
-                    Math.PI / 2,
-                    Math.PI,
-                    Math.PI * 3 / 2,
-                    2 * Math.PI,
-                  ],
-                  outputRange: [
-                    inclinationDeviation,
-                    0,
-                    -inclinationDeviation,
-                    0,
-                    inclinationDeviation,
-                  ],
-                }),
+                translateY: Animated.multiply(
+                  AnimatedMath.sinus(this.rotation),
+                  elipsisRadius * Math.sin(inclination)
+                ),
               },
               { rotateY: this.spin },
               { rotateZ: axialTilt },
@@ -89,6 +77,6 @@ export default class Planet extends React.Component {
           texture={asset(this.props.texture)}
         />
       </View>
-    )
+    );
   }
 }
