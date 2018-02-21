@@ -6,6 +6,7 @@ const Galaxy = Animated.createAnimatedComponent(Scene)
 const RCTDeviceEventEmitter = require('RCTDeviceEventEmitter')
 
 import Planet from './Planet'
+import Sun from './Sun'
 
 import { EARTH_YEAR, EARTH_DAY } from './constants'
 
@@ -38,7 +39,7 @@ class App extends React.Component {
             {
               translateZ: zoom.interpolate({
                 inputRange: [0, 1],
-                outputRange: [1, 3],
+                outputRange: [1, 5],
               }),
             },
             {
@@ -59,10 +60,7 @@ class App extends React.Component {
           inclination={7.155}
           axialTilt={23.4}
         />
-        <PointLight
-          intensity={1}
-          style={{ transform: [{ translate: [0, 0, 0] }] }}
-        />
+        <Sun />
       </Galaxy>
     )
   }
