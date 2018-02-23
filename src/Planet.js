@@ -32,7 +32,6 @@ export default class Planet extends React.Component {
       toValue: 2 * Math.PI,
       easing: Easing.linear,
       duration: this.props.yearDuration,
-      // useNativeDriver: true, https://github.com/facebook/react-native/issues/11094#issuecomment-263240420
     }).start(() => {
       this.rotation.setValue(0);
       this.startRotation();
@@ -57,7 +56,7 @@ export default class Planet extends React.Component {
               {
                 translateZ: Animated.multiply(
                   AnimatedMath.cosinus(this.rotation),
-                  -elipsisRadius
+                  elipsisRadius
                 ),
               },
               {
@@ -67,7 +66,6 @@ export default class Planet extends React.Component {
                 ),
               },
               { rotateY: this.spin },
-              { rotateZ: axialTilt },
             ],
           }}
           radius={radius}
