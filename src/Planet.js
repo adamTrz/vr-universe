@@ -43,19 +43,19 @@ export default class Planet extends React.Component {
             transform: [
               {
                 translateX: Animated.multiply(
-                  AnimatedMath.sinus(this.rotation),
+                  AnimatedMath.sin(this.rotation),
                   -elipsisRadius
                 ),
               },
               {
                 translateZ: Animated.multiply(
-                  AnimatedMath.cosinus(this.rotation),
+                  AnimatedMath.cos(this.rotation),
                   elipsisRadius
                 ),
               },
               {
                 translateY: Animated.multiply(
-                  AnimatedMath.sinus(this.rotation),
+                  AnimatedMath.sin(this.rotation),
                   elipsisRadius * Math.sin(inclination)
                 ),
               },
